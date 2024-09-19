@@ -73,6 +73,7 @@ export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
     const accountsResponse = await plaidClient.accountsGet({
       access_token: bank.accessToken,
     });
+
     const accountData = accountsResponse.data.accounts[0];
 
     // get transfer transactions from appwrite
@@ -118,6 +119,8 @@ export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
     const allTransactions = [...transactions, ...transferTransactions].sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
+
+    //console.log(allTransactions)
 
     return parseStringify({
       data: account,

@@ -10,15 +10,15 @@ import React from 'react'
 const Home = async ({searchParams: {id, page}}: SearchParamProps) => {
     const currentPage = Number(page as string) || 1
     const user = await getLoggedInUser()
-    console.log(user)
+    //console.log(user)
 
-    const accounts = await getAccounts({userId: user?.$id})
+    const accounts = await getAccounts({userId: user.$id})
 
     if(!accounts) return;
 
 
     const accountsData = accounts?.data; 
-    const appwriteItemId = (id as string)|| accountsData[0]?.appriteItemId;
+    const appwriteItemId = (id as string) || accountsData[0]?.appriteItemId;
 
     const account = await getAccount({appwriteItemId});
 
@@ -49,7 +49,8 @@ const Home = async ({searchParams: {id, page}}: SearchParamProps) => {
         <RightSidebar 
             user={user}
             transactions={accounts?.transactions}  
-            banks={accountsData?.slide(0,2)}
+            banks={accountsData?.slice(0,2)}
+            page={currentPage}
         />
     </section>
   )
