@@ -1,4 +1,5 @@
 import HeaderBox from '@/components/HeaderBox'
+import RecentTransactions from '@/components/RecentTransactions'
 import RightSidebar from '@/components/RightSidebar'
 import TotalBalanceBox from '@/components/TotalBalanceBox'
 import { getAccount, getAccounts } from '@/lib/actions/banks.actions'
@@ -7,6 +8,7 @@ import { emit } from 'process'
 import React from 'react'
 
 const Home = async ({searchParams: {id, page}}: SearchParamProps) => {
+    const currentPage = Number(page as string) || 1
     const user = await getLoggedInUser()
     console.log(user)
 
@@ -27,7 +29,7 @@ const Home = async ({searchParams: {id, page}}: SearchParamProps) => {
                <HeaderBox 
                 type="greeting"
                 title="Welcome"
-                user={user?.name || "Guest"}
+                user={user?.firstName || "Guest"}
                 subtext="Access and manage your accounts and transactions."
                />
                <TotalBalanceBox 
@@ -37,7 +39,12 @@ const Home = async ({searchParams: {id, page}}: SearchParamProps) => {
                />
             </header>
 
-            RECENT TRANSACTIONS
+            <RecentTransactions 
+              accounts={accountsData}
+              transactions={account?.transactions}
+              appwriteItemId={appwriteItemId}
+              page={page}
+            />
         </div>
         <RightSidebar 
             user={user}
