@@ -11,7 +11,7 @@ const imbPlexSerif = IBM_Plex_Serif({
 })
 
 export const metadata: Metadata = {
-  title: "Sykes Banking",
+  title: "SykesVault",
   description: "Sykes Banking us a modern bacnking platform for everyone.",
   icons: {
     icon: "/icons/logo.svg", 
